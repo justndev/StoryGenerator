@@ -66,7 +66,8 @@ yarn-error.log*
 **/.venv/
 
 # Ignore bg_videos except for Python files
-StoryGeneratorBackend/StoryGenerator/bg_videos/
-!StoryGeneratorBackend/StoryGenerator/bg_videos/*.pyStoryGeneratorBackend/StoryGenerator/temp_ready_videos/
+StoryGeneratorBackend/StoryGenerator/bg_videos/*
+!StoryGeneratorBackend/StoryGenerator/bg_videos/*.py
+StoryGeneratorBackend/StoryGenerator/temp_ready_videos/
 StoryGeneratorBackend/StoryGenerator/temp_voiced_videos/
 StoryGeneratorBackend/StoryGenerator/temp_voices/
