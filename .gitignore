@@ -54,5 +54,5 @@ yarn-error.log*
 *.swo
 
 # Ignore bg_videos except for Python files
-StoryGenerator/StoryGenerator/bg_videos/
-!StoryGenerator/StoryGenerator/bg_videos/*.py
+StoryGeneratorBackend/StoryGenerator/bg_videos/
+!StoryGeneratorBackend/StoryGenerator/bg_videos/*.py
