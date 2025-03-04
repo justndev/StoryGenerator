@@ -1,0 +1,58 @@
+# General system files
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA / Eclipse / VS Code / JetBrains
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Maven / Gradle
+target/
+*.jar
+*.war
+*.ear
+*.class
+*.log
+!src/main/resources/application.properties  # Keep the properties file but ignore others
+src/main/resources/*.properties~
+src/main/resources/*.yml~
+src/main/resources/*.yaml~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.eggs/
+venv/
+.env
+
+# Python temp files
+temp_ready_videos/
+temp_voiced_videos/
+temp_voices/
+
+# Node.js / Frontend
+node_modules/
+dist/
+build/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific
+*.swp
+*.swo
+
+# Ignore bg_videos except for Python files
+StoryGenerator/StoryGenerator/bg_videos/
+!StoryGenerator/StoryGenerator/bg_videos/*.py
