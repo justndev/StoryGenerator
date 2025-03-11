@@ -1,0 +1,58 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+target/
+
+# Logs
+logs/
+*.log
+
+# Compiled files
+*.class
+
+# Build directories
+/build/
+!/src/main/resources/static/**/build/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# Maven & Gradle
+.mvn/
+.gradle/
+build/
+target/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Dependencies
+**/lib/*
+!src/main/resources/lib/
+
+# Ignore application properties (optional, to avoid exposing secrets)
+application.properties
+application.yml
+application-dev.properties
+application-prod.properties
+application-*.yml
+
+# Ignore specific OS files
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml
+
+# Lombok generated files
+.lombok/
+
+# Coverage reports
+/coverage/
+*.ec
+
+# SonarQube
+.sonar/
