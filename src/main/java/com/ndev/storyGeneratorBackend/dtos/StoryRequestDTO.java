@@ -8,6 +8,7 @@ import lombok.Setter;
 public class StoryRequestDTO {
     private String bgVideoId;
     private String text;
+    private String voice;
 
     public String getBgVideoId() {
         return bgVideoId;
@@ -22,4 +23,11 @@ public class StoryRequestDTO {
         this.text = text;
     }
 
+    public String getVoice() {
+        return voice;
+    }
+
+    public void setVoice(String voice) {
+        this.voice = voice;
+    }
 }

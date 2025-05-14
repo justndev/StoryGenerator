@@ -1,9 +1,6 @@
 package com.ndev.storyGeneratorBackend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 import java.util.Objects;
@@ -36,8 +33,7 @@ public class User {
     public User() {
     }
 
-    // All-args constructor
-    public User(UUID id, String password, String email, String firstName, String lastName, boolean enabled, String verificationCode) {
+    public User(UUID id, String password, String email, String firstName, String lastName, boolean enabled, String verificationCode, String jwt) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -45,6 +41,7 @@ public class User {
         this.lastName = lastName;
         this.enabled = enabled;
         this.verificationCode = verificationCode;
+        this.jwt = jwt;
     }
 
     // Getters
@@ -76,9 +73,20 @@ public class User {
         return verificationCode;
     }
 
+    @Transient
+    private String jwt;
+
     // Setters
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
     }
 
     public void setPassword(String password) {
@@ -118,6 +126,18 @@ public class User {
         private String lastName;
         private boolean enabled;
         private String verificationCode;
+        private String jwt;
+
+        // Add jwt method to builder
+        public UserBuilder jwt(String jwt) {
+            this.jwt = jwt;
+            return this;
+        }
+
+        // Update build method to include JWT
+        public User build() {
+            return new User(id, password, email, firstName, lastName, enabled, verificationCode, jwt);
+        }
 
         public UserBuilder id(UUID id) {
             this.id = id;
@@ -153,13 +173,8 @@ public class User {
             this.verificationCode = verificationCode;
             return this;
         }
-
-        public User build() {
-            return new User(id, password, email, firstName, lastName, enabled, verificationCode);
-        }
     }
 
-    // equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -171,15 +186,17 @@ public class User {
                 Objects.equals(email, user.email) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
-                Objects.equals(verificationCode, user.verificationCode);
+                Objects.equals(verificationCode, user.verificationCode) &&
+                Objects.equals(jwt, user.jwt);
     }
 
+    // Update hashCode method to include JWT
     @Override
     public int hashCode() {
-        return Objects.hash(id, password, email, firstName, lastName, enabled, verificationCode);
+        return Objects.hash(id, password, email, firstName, lastName, enabled, verificationCode, jwt);
     }
 
-    // toString
+    // Update toString method to include JWT
     @Override
     public String toString() {
         return "User{" +
@@ -190,6 +207,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", enabled=" + enabled +
                 ", verificationCode='" + verificationCode + '\'' +
+                ", jwt='[PROTECTED]'" +
                 '}';
     }
 }

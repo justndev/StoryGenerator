@@ -6,9 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.web.util.UriComponentsBuilder;
+
 
 @Service
 public class FlaskApiService {
+    public static String flaskIp = "http://localhost:5000/";
 
     private final RestTemplate restTemplate;
 
@@ -17,11 +20,11 @@ public class FlaskApiService {
     }
 
     // Calling Flask's '/generate' endpoint
-    public String generateShortVideo(String text, String bgVideoId, String uid) {
-        String url = "http://localhost:5000/generate"; // Flask endpoint
+    public String generateShortVideo(String text, String bgVideoId, String uid, String voice) {
+        String url = flaskIp + "generate";
 
         // JSON payload
-        String jsonPayload = String.format("{\"text\":\"%s\", \"bgVideoId\":\"%s\", \"uid\":\"%s\"}", text, bgVideoId, uid);
+        String jsonPayload = String.format("{\"text\":\"%s\", \"bgVideoId\":\"%s\", \"uid\":\"%s\", \"voice\":\"%s\"}", text, bgVideoId, uid, voice);
 
         // Create HTTP headers
         HttpHeaders headers = new HttpHeaders();
@@ -37,24 +40,18 @@ public class FlaskApiService {
         return response.getBody();
     }
 
-    // Calling Flask's '/confirm' endpoint
-    public String confirmDeletion(String uid) {
-        String url = "http://localhost:5000/confirm"; // Flask endpoint
+    public String checkStatus(String uid) {
+        String baseUrl = "http://localhost:5000/status"; // Flask endpoint
 
-        // JSON payload
-        String jsonPayload = String.format("{\"uid\":\"%s\"}", uid);
+        // Construct URL with query parameter
+        String url = UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .queryParam("uid", uid)
+                .toUriString();
 
-        // Create HTTP headers
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", "application/json");
+        // Make the GET request to Flask
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
-        // Create HTTP entity with payload and headers
-        HttpEntity<String> entity = new HttpEntity<>(jsonPayload, headers);
-
-        // Make the POST request to Flask
-        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-
-        // Return response from Flask API
+        // Return the response body from Flask API
         return response.getBody();
     }
 }
